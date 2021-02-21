@@ -28,9 +28,7 @@ public class App {
 
             User tempUserInstance = null;
 
-            for (int i = 0; i < inputLinesList.size(); i++) {
-                String line = inputLinesList.get(i);
-
+            for (String line : inputLinesList) {
                 String[] parts = line.split(" ");
 
                 if (Character.isAlphabetic(parts[0].trim().charAt(0))) {
@@ -38,7 +36,6 @@ public class App {
                     if (tempUserInstance != null) {
 
                         userList.add(tempUserInstance);
-                        tempUserInstance = null;
 
                     }
 
@@ -59,9 +56,24 @@ public class App {
                 }
             }
 
+            //Add the last user instance to the list
             userList.add(tempUserInstance);
 
-            userList.forEach(System.out::println);
+            //Get the size of of the user
+            int userCount = userList.size();
+
+            //Set quantum for user and in turn the processes
+            userList.forEach(user -> user.setQuantumTime((double) quantumTime / userCount));
+
+            //Debug Users List
+            //userList.forEach(System.out::println);
+
+            //Debug Processes
+            //userList.forEach(user -> user.getProcessList().forEach(System.out::println));
+            for (int i = 0; i < 2; i++) {
+                userList.forEach(user -> new Thread(user).start());
+            }
+
 
         } catch (Exception e) {
 

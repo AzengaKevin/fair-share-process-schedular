@@ -31,7 +31,22 @@ public class Process implements Runnable {
     }
 
     public void execute() {
-        System.out.printf("Time %d, User %s, Process %d, Started", 1, user, pid);
+
+        System.out.printf("Time %d, User %s, Process %d, Started\n", 1, user, pid);
+        System.out.printf("Time %d, User %s, Process %d, Ready\n", 1, user, pid);
+
+        try {
+
+            Thread.sleep((long) quantumTime * 1000);
+
+            System.out.printf("Time %d, User %s, Process %d, Paused\n", 1, user, pid);
+
+        } catch (InterruptedException e) {
+
+            System.err.println(e.getLocalizedMessage());
+
+        }
+
     }
 
     public void setTime(int time) {
@@ -68,5 +83,10 @@ public class Process implements Runnable {
 
     public static int getProcessCount() {
         return processCount;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Process(id = %d, ready = %s, service = %s, quantum = %.2f)", pid, readyTime, serviceTime, quantumTime);
     }
 }
