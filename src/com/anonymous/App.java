@@ -71,7 +71,24 @@ public class App {
             //Debug Processes
             //userList.forEach(user -> user.getProcessList().forEach(System.out::println));
             for (int i = 0; i < 2; i++) {
-                userList.forEach(user -> new Thread(user).start());
+                userList.forEach(user -> {
+                    Thread thread = new Thread(user);
+
+                    thread.start();
+
+                    try {
+                        thread.join();
+
+                    } catch (InterruptedException e) {
+                        System.err.println(e.getLocalizedMessage());
+                    }
+                });
+            }
+
+            if (FileHandler.writeToFile(outputList, outputFilename, false)) {
+                System.out.println("Operation successful, check output.txt");
+            }else{
+                System.err.println("Oops !, something went wrong, debug or page someone");
             }
 
 

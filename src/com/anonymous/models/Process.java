@@ -1,5 +1,7 @@
 package com.anonymous.models;
 
+import com.anonymous.App;
+
 public class Process implements Runnable {
 
     int pid;
@@ -32,14 +34,14 @@ public class Process implements Runnable {
 
     public void execute() {
 
-        System.out.printf("Time %d, User %s, Process %d, Started\n", 1, user, pid);
-        System.out.printf("Time %d, User %s, Process %d, Ready\n", 1, user, pid);
+        App.outputList.add(String.format("Time %d, User %s, Process %d, Started\n", 1, user, pid));
+        App.outputList.add(String.format("Time %d, User %s, Process %d, Ready\n", 1, user, pid));
 
         try {
 
             Thread.sleep((long) quantumTime * 1000);
 
-            System.out.printf("Time %d, User %s, Process %d, Paused\n", 1, user, pid);
+            App.outputList.add(String.format("Time %d, User %s, Process %d, Paused\n", 1, user, pid));
 
         } catch (InterruptedException e) {
 

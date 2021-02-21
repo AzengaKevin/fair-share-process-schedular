@@ -31,12 +31,12 @@ public class User implements Runnable {
         processList.forEach(process -> {
             Thread thread = new Thread(process);
             thread.start();
-//            try {
-//                thread.join();
-//
-//            } catch (InterruptedException e) {
-//                System.err.println(e.getLocalizedMessage());
-//            }
+            try {
+                thread.join();
+
+            } catch (InterruptedException e) {
+                System.err.println(e.getLocalizedMessage());
+            }
         });
     }
 
